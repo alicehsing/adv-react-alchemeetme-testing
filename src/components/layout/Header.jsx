@@ -6,7 +6,7 @@ const Header = ({ user }) => {
   return (
     <header>
       <img src={logo} className="app-logo" alt="Alchemy Logo" />
-      <p>
+      <p aria-label={`Meet ${name}!`}>
         Meet <span style={{ color: `${color}` }}>{name}</span>!
       </p>
     </header>
