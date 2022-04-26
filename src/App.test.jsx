@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom';
-import Header from './components/layout/Header';
 import App from './App';
 
 const user = {
@@ -14,21 +13,30 @@ const user = {
   color: 'crimson',
 };
 
-describe('header', () => {
+describe('App', () => {
   it('Should render the header', async () => {
     render(
         <MemoryRouter>
-          <App />)
+          <App user={user} />
         </MemoryRouter>
     );
 
     // Find  and check an image with an alt="Alchemy Logo"
-    const img = await screen.getByAltText('Alchemy Logo');
+    const img = screen.getByAltText('Alchemy Logo');
     expect(img).toBeInTheDocument();
     
     // Find and check the profile name
-    const profileName = await screen.findByText('Vonta');
-    expect(profileName.textContent).toEqual('Vonta');
+
+    const headerText = await screen.findByLabelText(/meet vonta!/i);
+    expect(headerText).toBeInTheDocument();
+    // const profileName = await screen.findByText('Vonta');
+    // expect(profileName.textContent).toEqual('Vonta');
+
+    // Find and check background color = var(---grey)
+    const headerBgColor = screen.getByRole('banner');
+    expect(headerBgColor).toHaveStyle({
+      backgroundColor: 'var(--grey)'
+    });
   });
 });
 
